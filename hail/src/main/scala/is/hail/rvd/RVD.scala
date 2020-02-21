@@ -93,7 +93,7 @@ class RVD(
     val localRowPType = rowPType
     crdd.mapPartitions { it =>
       val encoder = new ByteArrayEncoder(makeEnc)
-      TaskContext.get.addTaskCompletionListener { _ =>
+      TaskContext.get.addTaskCompletionListener[Unit] { _ =>
         encoder.close()
       }
       it.map { rv =>
@@ -1113,7 +1113,7 @@ class RVD(
     val makeEnc = codecSpec.buildEncoder(that.rowPType)
     val partitionKeyedIntervals = that.boundary.crdd.mapPartitions { it =>
       val encoder = new ByteArrayEncoder(makeEnc)
-      TaskContext.get.addTaskCompletionListener { _ =>
+      TaskContext.get.addTaskCompletionListener[Unit] { _ =>
         encoder.close()
       }
       it.flatMap { rv =>
