@@ -27,7 +27,7 @@ repositories {
     maven { url "http://repo.spring.io/plugins-release/" }
 }
 
-String sparkVersion = System.getProperty("spark.version", "3.0.0-preview2")
+String sparkVersion = System.getProperty("spark.version")
 String breezeVersion = System.getProperty("breeze.version")
 String py4jVersion = System.getProperty("py4j.version")
 
@@ -39,13 +39,17 @@ if (py4jVersion == null || py4jVersion == '') {
     py4jVersion = '0.10.4'
   else if (sparkVersion == '2.3.0')
     py4jVersion = '0.10.6'
-  else
+  else if (sparkVersion == '2.4.0')
     py4jVersion = '0.10.7'
+  else
+    py4jVersion = '0.10.8'
 }
 
 if (breezeVersion == null || breezeVersion == '') {
   if (sparkVersion == '2.2.0')
     breezeVersion = '0.13.1'
+  else if (sparkVersion == '2.4.0')
+    breezeVersion = '0.13.2'
   else
     breezeVersion = '1.0'
 }
